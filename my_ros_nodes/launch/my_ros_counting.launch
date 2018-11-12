@@ -1,0 +1,4 @@
+<launch>
+  <node name="speakingNumbers_Node" pkg="my_ros_nodes" type="counting.py" output="screen"/>
+</launch>
+
