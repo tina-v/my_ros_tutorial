@@ -8,7 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_message_files(DIRECTORY msg
     FILES
-    speakingNumber.msg
+    SpeakingNumber.msg
     )
 
 generate_messages(DEPENDENCIES

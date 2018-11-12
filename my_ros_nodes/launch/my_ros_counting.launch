@@ -1,4 +1,7 @@
 <launch>
   <node name="speakingNumbers_Node" pkg="my_ros_nodes" type="counting.py" output="screen"/>
+
+  <node name="receivingNumbers_Node" pkg="my_ros_nodes" type="getStatistic.py" output="screen"/>
+
 </launch>
 
