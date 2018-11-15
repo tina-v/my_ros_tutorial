@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 
 # ROS message
-# from my_ros_msgs import speakingNumber
-from std_msgs.msg import String
 # from speakingNumbersNodes import everything
-from my_ros_msgs.msg import speakingNumber
+from my_ros_msgs.msg import SpeakingNumber
 # rospy 
 import rospy
 
 
 # printing number on console and log
 def speaking():
-    topic = 'speakingNumbers'
-    pub = rospy.Publisher(topic, speakingNumber, queue_size=10)
+    topic = 'speaking_numbers'
+    pub = rospy.Publisher(topic, SpeakingNumber, queue_size=10)
     rospy.init_node('my_ros_node', anonymous=True)
     num = 0
     rate = rospy.Rate(1)
@@ -21,7 +19,7 @@ def speaking():
         name_str = "count:" + str(num)
         rospy.loginfo(num)
         rospy.loginfo(name_str)
-        pub.publish(speakingNumber(name_str, num))
+        pub.publish(SpeakingNumber(name_str, num))
         rate.sleep()
 
 

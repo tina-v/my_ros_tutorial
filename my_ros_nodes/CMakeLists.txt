@@ -6,14 +6,23 @@ find_package(catkin REQUIRED COMPONENTS
     std_msgs
     my_ros_msgs
     )
-    
+
+
+add_service_files(FILES
+    GetCount.srv
+    )
+
+generate_messages()
+
 catkin_package(CATKIN_DEPENDS
     message_runtime
     std_msgs
     )
 
+
 catkin_install_python(PROGRAMS
   script/counting.py
+  script/getStatistics.py
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/script
 )
 
