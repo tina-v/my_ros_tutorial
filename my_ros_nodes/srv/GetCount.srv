@@ -1,4 +1,5 @@
 ---
 int64 num_messages
-my_ros_msgs/SpeakingNumber last_message
 my_ros_msgs/SpeakingNumber first_message 
+my_ros_msgs/SpeakingNumber last_message
+

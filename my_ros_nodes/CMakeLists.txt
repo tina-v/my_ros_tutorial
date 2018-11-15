@@ -12,7 +12,9 @@ add_service_files(FILES
     GetCount.srv
     )
 
-generate_messages()
+generate_messages(DEPENDENCIES
+    my_ros_msgs
+    )
 
 catkin_package(CATKIN_DEPENDS
     message_runtime
