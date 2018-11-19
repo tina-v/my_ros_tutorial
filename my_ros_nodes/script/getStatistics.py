@@ -1,50 +1,48 @@
 #!/usr/bin/env python
 
-# ROS getStatistics
-from std_msgs.msg import String
-# from my_ros_msgs import SpeakingNmber
-from my_ros_msgs.msg import SpeakingNumber
-# importing service GetCount
-from my_ros_nodes.srv import GetCountResponse, GetCount
-# rospy 
 import rospy
+from my_ros_msgs.msg import SpeakingNumber
+from my_ros_nodes.srv import GetCount, GetCountRequest
 
 
-#processing msg
-def handleStatistics(msg):
-#test
-    rospy.loginfo(GetCountResponse(countmsgs, firstmsg, lastmsg))
+class StatisticsNode(object):
+    def __init__(self):
+        """
+        initialisation of an object from StatisticsNode.
+        """
+        self.sub = rospy.Subscriber("speaking_numbers", SpeakingNumber, self.updateCount)
+        self.srv = rospy.Service("getCount", GetCount, self.handleStatistics)
+        self.first_msg = None
+        self.last_msg = None
+        self.msg_count = 0
 
-#updates received msgcount, saves information of SpeakingNumber as global variables
-def updateCount(msg):
-    global firstmsg
-    global lastmsg
-    global countmsgs
+    def updateCount(self, msg):
+        """
+        Callback to ROS topic that processes new SpeakingNumbers.
+        :param msg: The newest ROS message to process.
+        :type msg: SpeakingNumber
+        :return: Nothing.
+        :rtype: None
+        """
+        self.msg_count += 1
 
-    firstmsg = SpeakingNumber()
-    lastmsg = SpeakingNumber()
-    countmsgs = 0
+        if not self.first_msg:
+            self.first_msg = msg
 
-    if firstmsg is None: 
-        firstmsg = msg
-        countmsgs = 1
+        self.last_msg = msg
 
-    countmsgs += 1
-    lastmsg = msg
+    def handleStatistics(self, req):
+        """
+        service that returns the processes information of SpeakingNumber.
+        :param req: New service request.
+        :type req: GetCountRequest
+        :return: number of messengers received, firstmsg and lastmsg received
+        :rtype: dict
+        """
+        return {'num_messages':self.msg_count,'first_message': self.first_msg, 'last_message': self.last_msg}
 
-#test    handleStatistics(msg)
-
-#test
-#    rospy.loginfo(firstmsg)
-#    rospy.loginfo(lastmsg)
-
-#
-def getStatistic():
-    rospy.init_node('getStatistic_node', anonymous=True)
-    sub = rospy.Subscriber("speaking_numbers", SpeakingNumber, updateCount)
-    service = rospy.Service("getCount", GetCount, handleStatistics)
-# spin() simply keeps python from exiting until this node is stopped
-    rospy.spin()
 
 if __name__ == '__main__':
-    getStatistic()
+    rospy.init_node('getStatistic_node', anonymous=True)
+    StatisticsNode()
+    rospy.spin()
