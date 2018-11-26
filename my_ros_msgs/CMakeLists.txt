@@ -6,6 +6,10 @@ find_package(catkin REQUIRED COMPONENTS
     std_msgs
     )
 
+add_service_files(FILES
+    GetCount.srv
+    )
+
 add_message_files(DIRECTORY msg
     FILES
     SpeakingNumber.msg

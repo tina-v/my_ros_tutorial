@@ -3,7 +3,6 @@
 # ROS message
 # from speakingNumbersNodes import everything
 from my_ros_msgs.msg import SpeakingNumber
-# rospy 
 import rospy
 
 
@@ -14,11 +13,15 @@ class SpeakingNumberNode(object):
         """
         publishes SpeakingNumber msg through speaking_number topic.
         """
-        topic = 'speaking_numbers'
+        topic = '~speaking_numbers'
         self.pub = rospy.Publisher(topic, SpeakingNumber,  queue_size=10)
         self.num = 0
         self.name_str = None
         self.rate = None
+        #if rospy.has_param('speech_rate'):
+        #    self.rate = rospy.get_param('~speech_rate', 1)
+        #else:
+        #    raise RuntimeError('Parameter ~speech_rate not found.')
         self.rate = rospy.get_param('~speech_rate', 1)
 
     def speaking(self):
@@ -29,8 +32,8 @@ class SpeakingNumberNode(object):
         while not rospy.is_shutdown():
             self.num += 1
             self.name_str = "count:" + str(self.num)
-            rospy.loginfo(self.num)
-            rospy.loginfo(self.name_str)
+            rospy.logdebug(self.num)
+            rospy.logdebug(self.name_str)
             self.pub.publish(SpeakingNumber(self.name_str, self.num))
             rate.sleep()
 

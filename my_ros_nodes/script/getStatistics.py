@@ -10,8 +10,8 @@ class StatisticsNode(object):
         """
         initialisation of an object from StatisticsNode.
         """
-        self.sub = rospy.Subscriber("speaking_numbers", SpeakingNumber, self.updateCount)
-        self.srv = rospy.Service("getCount", GetCount, self.handleStatistics)
+        self.sub = rospy.Subscriber("~speaking_numbers", SpeakingNumber, self.updateCount)
+        self.srv = rospy.Service("~get_count", GetCount, self.handleStatistics)
         self.first_msg = None
         self.last_msg = None
         self.msg_count = 0

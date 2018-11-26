@@ -1,17 +1,21 @@
 <launch>
 
-<param name="~speech_rate" type="int" value="1" />
-<node name="speakingNumbers_Node1" pkg="my_ros_nodes" type="counting.py" output="screen" />
+<node name="speaking_numbers_node1" pkg="my_ros_nodes" type="counting.py" output="screen" >
+  <param name="speech_rate" type="int" value="1" />
+
+</node>
+
+<node name="speaking_numbers_node2" pkg="my_ros_nodes" type="counting.py" output="screen">
+  <param name="speech_rate" type="int" value="2" />
+</node>
 
 
-<param name="~speech_rate" type="int" value="2" />
-<node name="speakingNumbers_Node2" pkg="my_ros_nodes" type="counting.py" output="screen"/>
+<node name="receiving_numbers_node1" pkg="my_ros_nodes" type="getStatistics.py" output="screen">
+  <remap from ="~speaking_numbers" to ="/speaking_numbers_node1/speaking_numbers" />
+</node>
 
-<remap from ="speakingNumber" to ="speakingNumber/speakingNumbers_Node1" />
-<node name="receivingNumbers_Node1" pkg="my_ros_nodes" type="getStatistics.py" output="screen"/>
-
-<remap from ="speakingNumber" to ="speakingNumber/speakingNumbers_Node2" />
-<node name="receivingNumbers_Node2" pkg="my_ros_nodes" type="getStatistics.py" output="screen"/>
-
+<node name="receiving_numbers_node2" pkg="my_ros_nodes" type="getStatistics.py" output="screen">
+  <remap from ="~speaking_numbers" to ="/speaking_numbers_node2/speaking_numbers" />
+</node>
 </launch>
 

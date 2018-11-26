@@ -3,13 +3,13 @@ project(my_ros_nodes)
 
 find_package(catkin REQUIRED COMPONENTS
     message_generation
-    std_msgs
     my_ros_msgs
+    std_msgs
     )
 
 
-add_service_files(FILES
-    GetCount.srv
+add_service_files(DEPENDENCIES
+    my_ros_msgs
     )
 
 generate_messages(DEPENDENCIES
@@ -18,6 +18,7 @@ generate_messages(DEPENDENCIES
 
 catkin_package(CATKIN_DEPENDS
     message_runtime
+    my_ros_msgs
     std_msgs
     )
 
