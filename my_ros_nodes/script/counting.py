@@ -19,12 +19,13 @@ class SpeakingNumberNode(object):
         self.num = 0
         self.name_str = None
         self.rate = None
+        self.rate = rospy.get_param('~speech_rate', 1)
 
     def speaking(self):
         """
         starts to count in an 1 hz rate from 0 upwards and publishes it as SpeakingNumber.
         """
-        rate = rospy.Rate(1) # speaking rate
+        rate = rospy.Rate(self.rate) # speaking rate
         while not rospy.is_shutdown():
             self.num += 1
             self.name_str = "count:" + str(self.num)
