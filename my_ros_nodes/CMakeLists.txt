@@ -7,11 +7,6 @@ find_package(catkin REQUIRED COMPONENTS
     std_msgs
     )
 
-
-add_service_files(DEPENDENCIES
-    my_ros_msgs
-    )
-
 generate_messages(DEPENDENCIES
     my_ros_msgs
     )

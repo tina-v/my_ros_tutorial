@@ -2,7 +2,7 @@
 
 import rospy
 from my_ros_msgs.msg import SpeakingNumber
-from my_ros_nodes.srv import GetCount, GetCountRequest
+from my_ros_msgs.srv import GetCount, GetCountRequest
 
 
 class StatisticsNode(object):
